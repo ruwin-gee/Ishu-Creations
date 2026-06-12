@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Design Gallery — Ishu Creation</title>
+<link rel="icon" type="image/x-icon" href="images/LOGO/title.png">
+<meta name="description" content="Browse beautiful cake designs for inspiration. Find your dream cake and order it from Ishu Creation." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css" />
+
+<style>
+/* =====================================================
+   Designer Gallery — Page-specific styles
+   ===================================================== */
+
+/* ---- Hero ---- */
+.gallery-hero {
+  padding: 7.5rem 0 2.5rem;
+  background: linear-gradient(160deg, var(--blush) 0%, var(--cream) 55%);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.gallery-hero::before {
+  content: '';
+  position: absolute;
+  width: 28rem; height: 28rem;
+  border-radius: 50%;
+  top: -10rem; right: -8rem;
+  background: rgba(201,168,106,0.12);
+  filter: blur(60px);
+  pointer-events: none;
+}
+.gallery-hero h1 { margin-top: 0.75rem; }
+.gallery-hero p {
+  margin: 0.75rem auto 0;
+  color: var(--muted);
+  max-width: 480px;
+  font-size: 1rem;
+}
+
+/* ---- Search bar ---- */
+.search-wrap {
+  max-width: 600px;
+  margin: 2rem auto 0;
+  position: relative;
+}
+.search-icon-left {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+.search-input {
+  width: 100%;
+  padding: 1rem 3.5rem 1rem 3rem;
+  border-radius: 999px;
+  border: 2px solid var(--border);
+  background: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--foreground);
+  box-shadow: 0 8px 30px -10px rgba(139,58,58,0.12);
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.search-input::placeholder { color: #b0a09a; }
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 8px 30px -4px rgba(139,58,58,0.18);
+}
+.search-btn {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+  border: none;
+  cursor: pointer;
+}
+.search-btn:hover { background: var(--rose); transform: translateY(-50%) scale(1.06); }
+
+/* ---- Category chips ---- */
+.chips-row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  justify-content: flex-start;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 1.5rem 1.5rem 0.5rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.chips-row::-webkit-scrollbar { display: none; }
+@media (min-width: 700px) {
+  .chips-row { flex-wrap: wrap; justify-content: center; padding: 1.5rem 0 0.5rem; }
+}
+.chip {
+  white-space: nowrap;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--border);
+  background: #fff;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.chip:hover { border-color: var(--primary); color: var(--primary); }
+.chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+/* ---- Gallery section ---- */
+.gallery-section { padding: 1.5rem 0 5rem; }
+
+.gallery-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.gallery-status {
+  font-size: 0.825rem;
+  color: var(--muted);
+}
+.gallery-status strong { color: var(--primary); font-weight: 600; }
+
+/* ---- Masonry / Pinterest grid ---- */
+.pin-grid {
+  columns: 2;
+  column-gap: 10px;
+}
+@media (min-width: 540px)  { .pin-grid { columns: 3; column-gap: 12px; } }
+@media (min-width: 900px)  { .pin-grid { columns: 4; column-gap: 14px; } }
+@media (min-width: 1200px) { .pin-grid { columns: 5; column-gap: 14px; } }
+
+/* ---- Pin card ---- */
+.pin-item {
+  break-inside: avoid;
+  margin-bottom: 10px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  background: var(--blush);
+  display: block;
+}
+@media (min-width: 540px) { .pin-item { margin-bottom: 12px; border-radius: 18px; } }
+@media (min-width: 900px) { .pin-item { margin-bottom: 14px; border-radius: 20px; } }
+
+.pin-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.55s ease;
+}
+.pin-item:hover img { transform: scale(1.06); }
+
+.pin-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(42,31,28,0.88) 0%,
+    rgba(42,31,28,0.35) 45%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0.85rem;
+}
+.pin-item:hover .pin-overlay { opacity: 1; }
+
+.pin-overlay-title {
+  color: #fff;
+  font-family: var(--font-serif);
+  font-size: 0.82rem;
+  line-height: 1.35;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 1px 5px rgba(0,0,0,0.6);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pin-order-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--accent);
+  color: var(--foreground);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.38rem 0.85rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.pin-order-btn:hover { background: var(--gold-dark); color: #fff; transform: translateY(-1px); }
+
+.pin-save-btn {
+  position: absolute;
+  top: 8px; right: 8px;
+  width: 34px; height: 34px;
+  background: rgba(255,255,255,0.92);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s, color 0.2s;
+  cursor: pointer;
+  border: none;
+  font-size: 1rem;
+  color: var(--primary);
+  backdrop-filter: blur(4px);
+}
+.pin-item:hover .pin-save-btn { opacity: 1; }
+.pin-save-btn.saved { opacity: 1; color: #e63946; }
+
+/* ---- Skeletons ---- */
+.pin-skeleton {
+  break-inside: avoid;
+  margin-bottom: 10px;
+  border-radius: 16px;
+  background: linear-gradient(
+    100deg,
+    var(--blush) 30%,
+    rgba(245,217,210,0.5) 50%,
+    var(--blush) 70%
+  );
+  background-size: 250% 100%;
+  animation: shimmer 1.5s infinite ease-in-out;
+}
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ---- Full-width spans for columns layout ---- */
+.pin-full-span {
+  column-span: all;
+  width: 100%;
+}
+
+/* ---- Empty / Error states ---- */
+.empty-state, .error-state {
+  column-span: all;
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--muted);
+}
+.empty-state .em-icon,
+.error-state .em-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+.empty-state h3,
+.error-state h3 { font-family: var(--font-serif); color: var(--foreground); }
+.empty-state p,
+.error-state p { margin-top: 0.5rem; font-size: 0.925rem; }
+
+/* ---- Load more ---- */
+.load-more-wrap {
+  text-align: center;
+  margin-top: 2.5rem;
+  display: none;
+}
+.load-more-btn {
+  padding: 0.85rem 2.5rem;
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.load-more-btn:hover { background: var(--primary); color: #fff; }
+.load-more-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ---- Lightbox ---- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(42,31,28,0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.lightbox.open { opacity: 1; pointer-events: all; }
+
+.lightbox-inner {
+  background: var(--card);
+  border-radius: 24px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 880px;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 40px 80px -20px rgba(0,0,0,0.55);
+  transform: scale(0.92) translateY(16px);
+  transition: transform 0.3s ease;
+}
+.lightbox.open .lightbox-inner { transform: scale(1) translateY(0); }
+
+@media (min-width: 640px) {
+  .lightbox-inner {
+    flex-direction: row;
+    max-height: 88vh;
+  }
+}
+
+.lightbox-img-side {
+  flex: 1.2;
+  overflow: hidden;
+  min-height: 240px;
+  background: var(--blush);
+}
+.lightbox-img-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.lightbox-info-side {
+  flex: 1;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  overflow-y: auto;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 36px; height: 36px;
+  background: rgba(255,255,255,0.92);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--foreground);
+  z-index: 10;
+  transition: background 0.2s;
+  backdrop-filter: blur(4px);
+}
+.lightbox-close:hover { background: var(--blush); }
+
+.lb-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.lb-tag {
+  background: var(--blush);
+  color: var(--primary);
+  font-size: 0.7rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+.lb-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--foreground);
+  line-height: 1.3;
+  text-transform: capitalize;
+}
+.lb-desc {
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.lb-divider {
+  height: 1px;
+  background: var(--border);
+}
+.lb-meta {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.lb-meta a { color: var(--primary); font-weight: 500; }
+.lb-order-section {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.lb-order-note {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ---- Loading overlay for initial page ---- */
+.page-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem;
+  column-span: all;
+  gap: 1rem;
+  color: var(--muted);
+}
+.spin-ring {
+  width: 46px; height: 46px;
+  border: 4px solid var(--blush);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: ring-spin 0.85s linear infinite;
+}
+@keyframes ring-spin { to { transform: rotate(360deg); } }
+
+/* ---- Responsive tweaks ---- */
+@media (max-width: 540px) {
+  .gallery-hero { padding-top: 6.5rem; }
+  .lightbox-info-side { padding: 1.25rem; }
+  .lb-title { font-size: 1.1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="brand"><span>Ishu</span> <span>Creation</span></a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="designer.html" class="active">Designs</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="contact.html" class="btn btn-primary" style="display:none" id="cta-desktop">Order Now</a>
+    <button class="menu-toggle" aria-label="Menu">☰</button>
+  </div>
+  <nav class="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="designer.html">Designs</a>
+    <a href="about.html">About</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+<style>@media(min-width:1024px){#cta-desktop{display:inline-flex !important}}</style>
+
+<!-- ============ HERO ============ -->
+<section class="gallery-hero">
+  <div class="container">
+    <span class="gold-divider reveal">Cake Design Gallery</span>
+    <h1 class="reveal" style="margin-top:0.75rem">
+      Find Your <span class="italic">Dream Cake</span>
+    </h1>
+    <p class="reveal">
+      Browse thousands of stunning cake designs for inspiration. Spot something you love? We'll handcraft it just for you.
+    </p>
+
+    <!-- Search Bar -->
+    <div class="search-wrap reveal">
+      <span class="search-icon-left">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+      </span>
+      <input
+        type="text"
+        id="searchInput"
+        class="search-input"
+        placeholder="Search birthday cake, floral, wedding, chocolate…"
+        autocomplete="off"
+      />
+      <button class="search-btn" id="searchBtn" aria-label="Search">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Category Chips -->
+    <div class="chips-row" id="chipsRow">
+      <button class="chip active" data-query="beautiful cake design">✨ All</button>
+      <button class="chip" data-query="birthday cake design">🎂 Birthday</button>
+      <button class="chip" data-query="wedding cake design elegant">💍 Wedding</button>
+      <button class="chip" data-query="floral flower cake design">🌸 Floral</button>
+      <button class="chip" data-query="chocolate cake design drip">🍫 Chocolate</button>
+      <button class="chip" data-query="princess cake design girls">👸 Princess</button>
+      <button class="chip" data-query="baby shower cake design">🍼 Baby Shower</button>
+      <button class="chip" data-query="fondant custom cake design">🎨 Custom</button>
+      <button class="chip" data-query="ombre buttercream cake">🎀 Ombré</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="gallery-section">
+  <div class="container">
+
+    <!-- Status bar -->
+    <div class="gallery-bar">
+      <p class="gallery-status" id="galleryStatus">Loading designs…</p>
+    </div>
+
+    <!-- Masonry Grid -->
+    <div class="pin-grid" id="pinGrid">
+      <!-- filled by JS -->
+    </div>
+
+    <!-- Load More -->
+    <div class="load-more-wrap" id="loadMoreWrap">
+      <button class="load-more-btn" id="loadMoreBtn">Load More Designs</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Cake design preview">
+  <div class="lightbox-inner" id="lightboxInner">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close preview">✕</button>
+
+    <div class="lightbox-img-side">
+      <img id="lbImg" src="" alt="" />
+    </div>
+
+    <div class="lightbox-info-side">
+      <div class="lb-tags" id="lbTags"></div>
+
+      <h2 class="lb-title" id="lbTitle"></h2>
+      <p class="lb-desc" id="lbDesc"></p>
+
+      <div class="lb-divider"></div>
+
+      <p class="lb-meta" id="lbMeta"></p>
+
+      <div class="lb-order-section">
+        <button class="btn btn-primary" id="lbOrderBtn">
+          🛒 Order This Style on WhatsApp
+        </button>
+        <p class="lb-order-note">We'll recreate this design with your flavours & message ✨</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="font-size:1.5rem">
+          <center><span style="color:#fff">Ishu</span> <span style="color:var(--accent);font-style:italic">Creation</span></center>
+        </div>
+        <center><img src="images/LOGO/logo.png" alt="Ishu Creation logo" style="width:80px;"></center>
+        <p style="margin-top:1rem;font-size:0.9rem;text-align:center;font-family:cursive;">With Love to Your Loved Ones</p>
+      </div>
+      <div>
+        <br>
+        <center>
+          <a href="products.html">Products</a>
+          <a href="designer.html">Design Gallery</a>
+          <a href="reviews.html">Reviews</a>
+          <a href="contact.html">Contact</a>
+        </center>
+      </div>
+      <div>
+        <br>
+        <h4 style="text-align:center;">Get in touch</h4>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-top:0.5rem;justify-content:center">
+          <a href="https://wa.me/94789022447" target="_blank"><img src="images/LOGO/Whatsp icon.png" alt="WhatsApp" style="width:50px;height:50px;"></a>
+          <a href="contact.html"><img src="images/LOGO/Contact.png" alt="Contact" style="width:50px;height:50px;"></a>
+          <a href="https://www.facebook.com/share/1CmKyD44Ad/" target="_blank"><img src="images/LOGO/FB icon.png" alt="Facebook" style="width:50px;height:50px;"></a>
+          <a href="#" target="_blank"><img src="images/LOGO/Insta icon.png" alt="Instagram" style="width:50px;height:50px;"></a>
+        </div>
+      </div>
+    </div>
+     <div class="footer-bottom">© 2026 Ishu Creation. All rights reserved.<br>Designed and Developed by <a href="https://www.linkedin.com/in/ruwin-geenura-5465b5395/" class="design">Ruwin Geenura</a></div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/94789022447" target="_blank" aria-label="WhatsApp">
+  <img src="images/LOGO/Whatsp icon.png" alt="WhatsApp" style="width:38px;height:38px;">
+</a>
+
+<script src="js/main.js"></script>
+<script>
+/* ==============================================
+   Ishu Creation — Design Gallery  (designer.js)
+   Unsplash-powered Pinterest-style gallery
+   ============================================== */
+
+const UNSPLASH_KEY  = 'yGC3krDvxahLIQHw56WvlqZ6dvrWh__KtMZGWp6mXVU';          // ← your Unsplash access key
+const WA_NUMBER     = '94789022447';
+const PER_PAGE      = 20;
+
+/* State */
+let currentQuery = 'custom birthday cakes designs';
+let currentPage  = 1;
+let totalPages   = 1;
+let isLoading    = false;
+
+/* DOM refs */
+const grid         = document.getElementById('pinGrid');
+const statusEl     = document.getElementById('galleryStatus');
+const loadMoreWrap = document.getElementById('loadMoreWrap');
+const loadMoreBtn  = document.getElementById('loadMoreBtn');
+const lightbox     = document.getElementById('lightbox');
+const lbImg        = document.getElementById('lbImg');
+const lbTitle      = document.getElementById('lbTitle');
+const lbDesc       = document.getElementById('lbDesc');
+const lbMeta       = document.getElementById('lbMeta');
+const lbTags       = document.getElementById('lbTags');
+const lbOrderBtn   = document.getElementById('lbOrderBtn');
+
+/* ---- API ---- */
+async function fetchPhotos(query, page) {
+  const url =
+    `https://api.unsplash.com/search/photos` +
+    `?query=${encodeURIComponent(query)}` +
+    `&per_page=${PER_PAGE}` +
+    `&page=${page}` +
+    `&orientation=portrait` +
+    `&client_id=${UNSPLASH_KEY}`;
+
+  const res = await fetch(url);
+
+  if (res.status === 401 || res.status === 403) {
+    throw new Error('auth');
+  }
+  if (!res.ok) throw new Error(`http_${res.status}`);
+
+  return res.json(); // { total, total_pages, results: [...] }
+}
+
+/* ---- Helpers ---- */
+const cap = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : '';
+
+function truncate(str, n) {
+  return str && str.length > n ? str.slice(0, n) + '…' : (str || '');
+}
+
+/* ---- Skeletons ---- */
+const SK_HEIGHTS = [200, 260, 230, 300, 250, 220, 280, 240, 270, 210, 290, 260,
+                    220, 260, 230, 190, 310, 240, 280, 210];
+
+function showSkeletons(count = 16) {
+  grid.innerHTML = '';
+  loadMoreWrap.style.display = 'none';
+  for (let i = 0; i < count; i++) {
+    const sk = document.createElement('div');
+    sk.className = 'pin-skeleton';
+    sk.style.height = SK_HEIGHTS[i % SK_HEIGHTS.length] + 'px';
+    grid.appendChild(sk);
+  }
+}
+
+/* ---- Render photos ---- */
+function renderPhotos(photos, append) {
+  if (!append) grid.innerHTML = '';
+
+  if (!photos.length && !append) {
+    grid.innerHTML = `
+      <div class="empty-state">
+        <div class="em-icon">🎂</div>
+        <h3>No designs found</h3>
+        <p>Try a different search term or pick a category above.</p>
+      </div>`;
+    return;
+  }
+
+  photos.forEach(photo => {
+    const rawTitle = photo.description || photo.alt_description || 'Beautiful Cake Design';
+    const title    = cap(rawTitle);
+    const tags     = (photo.tags || []).slice(0, 5).map(t => t.title || '').filter(Boolean);
+    if (!tags.length) tags.push('cake', 'custom design');
+
+    const card = document.createElement('div');
+    card.className = 'pin-item';
+
+    card.innerHTML = `
+      <img
+        src="${photo.urls.small}"
+        alt="${title}"
+        loading="lazy"
+        width="${photo.width}"
+        height="${photo.height}"
+        style="background:var(--blush)"
+      />
+      <div class="pin-overlay">
+        <p class="pin-overlay-title">${truncate(title, 55)}</p>
+        <button class="pin-order-btn">🛒 Order This Style</button>
+      </div>
+      <button class="pin-save-btn" aria-label="Save design" title="Save">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </button>
+    `;
+
+    /* Save (heart) toggle */
+    const saveBtn = card.querySelector('.pin-save-btn');
+    saveBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      const saved = saveBtn.classList.toggle('saved');
+      saveBtn.querySelector('path').setAttribute('fill', saved ? '#e63946' : 'none');
+      saveBtn.querySelector('path').setAttribute('stroke', saved ? '#e63946' : 'currentColor');
+    });
+
+    /* Open lightbox */
+    card.addEventListener('click', () => openLightbox(photo, title, tags));
+
+    grid.appendChild(card);
+  });
+}
+
+/* ---- Load designs ---- */
+async function loadDesigns(query, page, append) {
+  if (isLoading) return;
+  isLoading = true;
+
+  if (!append) {
+    showSkeletons(16);
+    statusEl.innerHTML = `Searching for <strong>"${query}"</strong>…`;
+  } else {
+    loadMoreBtn.disabled = true;
+    loadMoreBtn.textContent = 'Loading…';
+  }
+
+  try {
+    const data = await fetchPhotos(query, page);
+    totalPages = data.total_pages || 1;
+
+    renderPhotos(data.results || [], append);
+
+    const total = data.total || 0;
+    if (total > 0) {
+      statusEl.innerHTML =
+        `Showing results for <strong>"${query}"</strong> — ${total.toLocaleString()} designs found`;
+    } else {
+      statusEl.innerHTML = `No results for <strong>"${query}"</strong>`;
+    }
+
+    /* Load-more visibility */
+    if (page < totalPages && (data.results || []).length > 0) {
+      loadMoreWrap.style.display = 'block';
+      loadMoreBtn.disabled = false;
+      loadMoreBtn.textContent = 'Load More Designs';
+    } else {
+      loadMoreWrap.style.display = 'none';
+    }
+
+  } catch (err) {
+    console.error('Gallery error:', err);
+
+    const authMsg = err.message === 'auth'
+      ? '<p style="margin-top:.5rem">Invalid API key — please update <code>UNSPLASH_KEY</code> in designer.html.</p>'
+      : '<p style="margin-top:.5rem">Check your connection and try again.</p>';
+
+    grid.innerHTML = `
+      <div class="error-state">
+        <div class="em-icon">😕</div>
+        <h3>Couldn't load designs</h3>
+        ${authMsg}
+        <button class="btn btn-primary" style="margin-top:1.5rem"
+          onclick="retryLoad()">Try Again</button>
+      </div>`;
+    statusEl.textContent = 'Failed to load designs';
+    loadMoreWrap.style.display = 'none';
+  }
+
+  isLoading = false;
+}
+
+/* exposed so inline onclick can call it */
+window.retryLoad = () => loadDesigns(currentQuery, currentPage, false);
+
+/* ---- Lightbox ---- */
+function openLightbox(photo, title, tags) {
+  lbImg.src     = photo.urls.regular || photo.urls.small;
+  lbImg.alt     = title;
+  lbTitle.textContent = truncate(title, 80);
+
+  lbDesc.textContent =
+    photo.description && photo.description.length > 20
+      ? photo.description
+      : 'A stunning cake design for your special occasion. Contact us to bring this vision to life!';
+
+  /* tags */
+  lbTags.innerHTML = tags
+    .slice(0, 6)
+    .map(t => `<span class="lb-tag">${t}</span>`)
+    .join('');
+
+  /* photo credit (required by Unsplash guidelines) */
+  if (photo.user) {
+    lbMeta.innerHTML =
+      `Photo by <a href="${photo.user.links.html}?utm_source=ishu_creation&utm_medium=referral" target="_blank" rel="noopener">${photo.user.name}</a>` +
+      ` on <a href="https://unsplash.com/?utm_source=ishu_creation&utm_medium=referral" target="_blank" rel="noopener">Unsplash</a>`;
+  } else {
+    lbMeta.textContent = '';
+  }
+
+  /* order button */
+  const imgURL = photo.urls.regular;
+  lbOrderBtn.onclick = () => orderStyle(title, imgURL);
+
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ---- WhatsApp order ---- */
+function orderStyle(title, imgURL) {
+  const msg =
+    `Hi Ishu Creation! 🎂✨\n\n` +
+    `I found this cake design I love and would like to order something similar:\n\n` +
+    `📌 Design: ${title}\n` +
+    `🔗 Reference: ${imgURL}\n\n` +
+    `Please let me know:\n` +
+    `• Available sizes & flavours\n` +
+    `• Pricing\n` +
+    `• Delivery date & options\n\n` +
+    `Thank you! 😊`;
+  window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+/* ---- Event listeners ---- */
+
+/* Search */
+function performSearch() {
+  const q = document.getElementById('searchInput').value.trim();
+  if (!q) return;
+  currentQuery = q;
+  currentPage  = 1;
+  document.querySelectorAll('.chips-row .chip').forEach(c => c.classList.remove('active'));
+  loadDesigns(currentQuery, 1, false);
+}
+document.getElementById('searchBtn').addEventListener('click', performSearch);
+document.getElementById('searchInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') performSearch();
+});
+
+/* Category chips */
+document.getElementById('chipsRow').addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  document.querySelectorAll('.chips-row .chip').forEach(c => c.classList.remove('active'));
+  chip.classList.add('active');
+  document.getElementById('searchInput').value = '';
+  currentQuery = chip.dataset.query;
+  currentPage  = 1;
+  loadDesigns(currentQuery, 1, false);
+});
+
+/* Load more */
+loadMoreBtn.addEventListener('click', () => {
+  currentPage++;
+  loadDesigns(currentQuery, currentPage, true);
+});
+
+/* Close lightbox */
+document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+/* ---- Boot ---- */
+loadDesigns(currentQuery, 1, false);
+</script>
+</body>
+</html>

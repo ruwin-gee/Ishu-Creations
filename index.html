@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ishu Creation — Handcrafted Cakes & Gift Hampers</title>
+<link rel="icon" type="image/x-icon" href="images/LOGO/title.png">
+<meta name="description" content="Elegant custom cakes and curated gift hampers, made fresh." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<!-- ============== HEADER ============== -->
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="brand"><span>Ishu</span> <span>Creation</span></a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      
+      <a href="designer.html">Designs</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="contact.html" class="btn btn-primary" style="display:none" id="cta-desktop">Order Now</a>
+    <button class="menu-toggle" aria-label="Menu">☰</button>
+  </div>
+  <nav class="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    
+    <a href="designer.html">Designs</a>
+    <a href="about.html">About</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+<style>@media(min-width:1024px){#cta-desktop{display:inline-flex !important}}</style>
+
+<!-- ============== HERO ============== -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <span class="gold-divider">Handcrafted with love</span>
+      <h1>Sweet moments,<br><span class="italic">beautifully</span> wrapped.</h1>
+      <p>From dreamy custom cakes to thoughtfully curated gift hampers — Ishu Creation turns every celebration into a keepsake.</p>
+      <div class="hero-cta">
+        <a href="products.html" class="btn btn-primary">Explore the collection →</a>
+        <a href="designer.html" class="btn btn-outline">✨ Explore Designs</a>
+      </div>
+      <div class="hero-stats" id="hero-stats">
+        <div><div class="stat-num" data-target="200" data-suffix="+">0</div><div>Happy clients</div></div>
+        <div class="divider"></div>
+        <div><div class="stat-num" data-target="4.9" data-decimals="1" data-suffix="★">0</div><div>Avg. rating</div></div>
+        <div class="divider"></div>
+        <div><div class="stat-num" data-target="100" data-suffix="%">0</div><div>Handmade</div></div>
+      </div>
+    </div>
+    <div class="hero-image-wrap reveal">
+      <img src="images/hero-cake.jpg" alt="Pink and gold celebration cake">
+    </div>
+  </div>
+</section>
+
+<!-- ============== CATEGORIES ============== -->
+<section class="section">
+  <div class="container">
+    <div class="text-center reveal" style="max-width:600px;margin:0 auto">
+      <span class="gold-divider">Our specialties</span>
+      <h2 style="margin-top:1rem">A little something for every <span class="italic">moment</span>.</h2>
+    </div>
+    <div class="grid grid-3" style="margin-top:3rem">
+      <div class="card reveal">
+        <div class="card-icon"> <img src="images/LOGO/Cake college.png" alt="Custom Cakes"> </div>
+        <h3 style="text-align: center;">Custom Cakes</h3>
+        <p style="margin-top:0.5rem;color:var(--muted)">Birthdays, weddings, anniversaries — designed for you.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon"> <img src="images/LOGO/Gift box college.png" alt="Gift Hampers"> </div>
+        <h3 style="text-align: center;">Gift Hampers</h3>
+        <p style="margin-top:0.5rem;color:var(--muted)">Curated boxes that feel as good as they taste.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon"> <img src="images/LOGO/Flower.png" alt="Bespoke Orders"> </div>
+        <h3 style="text-align: center;">Bespoke Orders</h3>
+        <p style="margin-top:0.5rem;color:var(--muted)">Tell us your vision, we'll bring it to life.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FEATURED ============== -->
+<section class="section" style="background:rgba(245,217,210,0.2)">
+  <div class="container">
+    <div class="reveal" style="display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:1rem">
+      <div>
+        <span class="gold-divider">Bestsellers</span>
+        <h2 style="margin-top:0.75rem">Featured creations</h2>
+      </div>
+      <a href="products.html" style="color:var(--primary);font-weight:500">View full gallery →</a>
+    </div>
+    <div class="grid grid-3" id="products-grid" style="margin-top:3rem"></div>
+  </div>
+</section>
+
+<!-- ============== CTA BANNER ============== -->
+<section class="section">
+  <div class="container">
+    <div class="cta-banner reveal">
+      <h2>Let's bake something <span class="italic" style="color:#fff">unforgettable</span>.</h2>
+      <p>Tell us about your celebration — we'll design something you'll love.</p>
+      <a href="contact.html" class="btn" style="background:var(--cream);color:var(--primary)">Place an order →</a>
+    </div>
+  </div>
+</section>
+<!-- ============== FOOTER ============== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="font-size:1.5rem"><center><span style="color:#fff">Ishu</span> <span style="color:var(--accent);font-style:italic">Creation</span></div>
+        <center><img src="images/LOGO/logo.png" alt="Ishu Creation logo" style="width:80px;"></center>
+        <p style="margin-top:1rem;font-size:0.9rem; text-align: center; font-family: cursive;">With Love to Your Loved Ones</p>
+      </div>
+      <div>
+        <br>
+        <center>
+        <a href="products.html">Products</a>
+        <a href="designer.html">Designs</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="contact.html">Contact</a>
+        </center>
+      </div>
+      <div>
+        <br>
+        <h4 style="text-align: center;"> Get in touch </h4>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-top:0.5rem;justify-content:center">
+        
+        <a href="https://wa.me/94789022447" target="_blank"> <img src="images/LOGO/Whatsp icon.png" alt="WhatsApp" style="width:50px;height:50px;"> </a>
+        <a href="contact.html"> <img src="images/LOGO/Contact.png" alt="Contact" style="width:50px;height:50px;"> </a>
+        <a href="https://www.facebook.com/share/1CmKyD44Ad/" target="_blank"> <img src="images/LOGO/FB icon.png" alt="Facebook" style="width:50px;height:50px;"> </a>
+        <a href="#" target="_blank"> <img src="images/LOGO/Insta icon.png" alt="Instagram" style="width:50px;height:50px;"> </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Ishu Creation. All rights reserved.<br>Designed and Developed by <a href="https://www.linkedin.com/in/ruwin-geenura-5465b5395/" class="design">Ruwin Geenura</a></div>
+  </div>
+</footer>
+<a class="wa-float" href="https://wa.me/94789022447" target="_blank" aria-label="WhatsApp"> <img src="images/LOGO/Whatsp icon.png" alt="WhatsApp" style="width:38px;height:38px;"> </a>
+<script src="js/main.js"></script>
+</body>
+</html>
